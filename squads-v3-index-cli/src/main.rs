@@ -175,7 +175,7 @@ async fn index(
             AccountMeta::new_readonly(system_program::id(), false),
             AccountMeta::new_readonly(authority_key, false),
             AccountMeta::new_readonly(multisig, false),
-            AccountMeta::new_readonly(payer.pubkey(), true),
+            AccountMeta::new(payer.pubkey(), true),
             AccountMeta::new(index_key, false),
         ],
         data: vec![],
