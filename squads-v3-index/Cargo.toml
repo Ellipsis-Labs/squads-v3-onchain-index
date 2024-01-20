@@ -1,0 +1,28 @@
+[package]
+name = "squads-v3-index"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "squads_v3_index"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+default = []
+test = []
+
+[profile.release]
+lto = true 
+codegen-units = 1
+overflow-checks = true
+strip = true
+panic = "abort"
+opt-level = "z"
+
+[dependencies]
+solana-program = "=1.17.5"
