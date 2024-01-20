@@ -2,6 +2,8 @@
 name = "squads-v3-index-cli"
 version = "0.1.0"
 edition = "2021"
+description = "CLI for linking Solana program multisig authorities back to the Squads V3 program"
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
