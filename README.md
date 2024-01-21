@@ -55,7 +55,7 @@ The Authority is the true program upgrade authority, but it is not possible to c
 Once you grab the Multisig address, pass it into the `index` subcommand on the CLI. It will print the following for you to confirm:
 
 ```bash
-$ squads-v3-index-cli 6x3BDkL2n7VjBWxRD95EsbQi2R2E4zxrvcz1VA6pihnK
+$ squads-v3-index-cli index 6x3BDkL2n7VjBWxRD95EsbQi2R2E4zxrvcz1VA6pihnK
 3/4 Multisig account exists
 Multisig key: 6x3BDkL2n7VjBWxRD95EsbQi2R2E4zxrvcz1VA6pihnK
 Authority key: 8mv7G3fJq5a5ej7E14vgcSGeQKH79emjU9fVfuhyitEq
