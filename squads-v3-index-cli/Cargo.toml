@@ -1,6 +1,6 @@
 [package]
 name = "squads-v3-index-cli"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "CLI for linking Solana program multisig authorities back to the Squads V3 program"
 license = "MIT"
@@ -14,6 +14,8 @@ shellexpand = "2.1.2"
 solana-sdk = "1.10.32"
 solana-client = "1.14.7"
 solana-cli-config = "1.14.7"
+solana-transaction-status = "1.14.7"
+indicatif = "0.16.2"
 borsh = "0.9.3"
 tokio = { version = "1.8.4", features = ["full"] }
 squads-mpl = { version="1.3.1", features=["no-entrypoint", "no-idl", "no-log-ix-name"] }

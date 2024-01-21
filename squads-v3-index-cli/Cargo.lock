@@ -3748,16 +3748,18 @@ dependencies = [
 
 [[package]]
 name = "squads-v3-index-cli"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anchor-lang",
  "anyhow",
  "borsh",
  "clap 4.4.18",
+ "indicatif",
  "shellexpand",
  "solana-cli-config",
  "solana-client",
  "solana-sdk",
+ "solana-transaction-status",
  "squads-mpl",
  "tokio",
 ]

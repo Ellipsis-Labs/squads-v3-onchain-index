@@ -35,10 +35,16 @@ cargo install squads-v3-index-cli
 ```
 
 ## Usage
+The easiest way to index a program is to directly pass in the program ID. The CLI will automatically add an index for the program upgrade authority.
+**Note that the local keypair will need to pay 0.00089588 SOL for the transaction if the key is not already indexed.**
 
-If you want to index a program, you will first need to find the address of the Multisig Account associated with the program.
+```bash
 
-**Note that this is different from the upgrade authority**.
+```
+
+If you want to index an arbitrary Squads Vault, you will first need to find the address of its corresponding the Multisig Account.
+
+**Note that this is different from the Squads Vault authority**.
 
 You can find both of these address in the **Info** section on the Squads V3 UI. The "Authority" (or Squad Vault) is highlighted in light blue and the "Multisig" is highlighted in lime green.
 
@@ -95,7 +101,12 @@ Cost: 0.00089588 SOL
 
 If you don't want the confirmation you can pass in the `-y` flag to immediately execute.
 
-After execution you can run the `check` subcommand on the program upgrade authority to validate that the index has been created:
+After execution you can run the `check` subcommand on the program upgrade authority OR the program ID to validate that the index has been created:
+
+```bash
+$ squads-v3-index-cli check PhoeNiXZ8ByJGLkxNfZRnkUfjvmuYqLR89jjFHGqdXY
+Index account exists for 8mv7G3fJq5a5ej7E14vgcSGeQKH79emjU9fVfuhyitEq ✅
+```
 
 ```bash
 $ squads-v3-index-cli check 8mv7G3fJq5a5ej7E14vgcSGeQKH79emjU9fVfuhyitEq
