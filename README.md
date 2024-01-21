@@ -39,7 +39,7 @@ The easiest way to index a program is to directly pass in the program ID. The CL
 **Note that the local keypair will need to pay 0.00089588 SOL for the transaction if the key is not already indexed.**
 
 ```bash
-
+squads-v3-index-cli index $PROGRAM_ID
 ```
 
 If you want to index an arbitrary Squads Vault, you will first need to find the address of its corresponding the Multisig Account.
