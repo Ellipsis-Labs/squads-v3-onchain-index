@@ -278,6 +278,10 @@ async fn check(client: &RpcClient, address: Pubkey, verbose: bool) -> anyhow::Re
                         &bpf_loader_upgradeable::id(),
                     );
                     let program_data_account = client.get_account(&program_data).await?;
+                    if program_data_account.data[12] == 0 {
+                        println!("Program is immutable ✅");
+                        return Ok(true);
+                    }
                     is_program = true;
                     Pubkey::try_from_slice(program_data_account.data[13..45].as_ref())?
                 } else {

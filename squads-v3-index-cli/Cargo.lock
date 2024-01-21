@@ -3748,7 +3748,7 @@ dependencies = [
 
 [[package]]
 name = "squads-v3-index-cli"
-version = "0.1.2"
+version = "0.1.3"
 dependencies = [
  "anchor-lang",
  "anyhow",

@@ -1,6 +1,6 @@
 [package]
 name = "squads-v3-index-cli"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2021"
 description = "CLI for linking Solana program multisig authorities back to the Squads V3 program"
 license = "MIT"
