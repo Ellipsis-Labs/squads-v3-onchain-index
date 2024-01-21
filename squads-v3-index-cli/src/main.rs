@@ -43,12 +43,12 @@ struct Args {
 enum Subcommand {
     /// Create an on-chain index that ties a multisig authority to the Squads V3 program
     Index {
-        /// Address of the multisig authority or the program
+        /// Address of a Squads V3 Multisig account or an upgradeable program controlled by a Squads V3 Multisig
         address: Pubkey,
     },
     /// Check if an index exists for a given authority public key
     Check {
-        /// Address of the multisig authority or the program
+        /// Address of a multisig authority (Squads Vault) or an upgradeable program controlled by a Squads V3 Multisig
         address: Pubkey,
     },
 }
@@ -165,7 +165,7 @@ async fn index(
                 }
                 println!("Searching for multisig for {}", address);
                 let ms =
-                    get_multisig_account_from_program_data(client, &program_data, &authority).await;
+                    get_multisig_account_from_key(client, &program_data, &authority, false).await;
                 if let Some(ms) = ms {
                     is_program = true;
                     println!("Found multisig for {}: {}", address, ms);
@@ -321,7 +321,7 @@ async fn check(client: &RpcClient, address: Pubkey, verbose: bool) -> anyhow::Re
         }
         println!();
         if let Some(multisig_addr) =
-            get_multisig_account_from_authority(client, &index_key, &authority).await
+            get_multisig_account_from_key(client, &index_key, &authority, true).await
         {
             let account_data = client.get_account(&multisig_addr).await?;
             // We need to pass in the exact offset of the vector's end to satisfy Borsh deserialization
@@ -339,47 +339,14 @@ async fn check(client: &RpcClient, address: Pubkey, verbose: bool) -> anyhow::Re
     Ok(true)
 }
 
-async fn get_multisig_account_from_authority(
+async fn get_multisig_account_from_key(
     client: &RpcClient,
-    index_key: &Pubkey,
+    key: &Pubkey,
     authority: &Pubkey,
+    reverse: bool,
 ) -> Option<Pubkey> {
-    let transaction_history = client
-        .get_signatures_for_address(&index_key)
-        .await
-        .unwrap_or_default()
-        .iter()
-        .filter_map(|tx| {
-            if tx.err.is_none() {
-                Some(tx.clone())
-            } else {
-                None
-            }
-        })
-        .collect::<Vec<_>>();
-
-    if !transaction_history.is_empty() {
-        let last_transaction = transaction_history.iter().rev().next()?;
-        if let Some(key) = extract_multisig_key_from_transaction(
-            client,
-            &Signature::from_str(&last_transaction.signature).unwrap(),
-            authority,
-        )
-        .await
-        {
-            return Some(key);
-        }
-    }
-    None
-}
-
-async fn get_multisig_account_from_program_data(
-    client: &RpcClient,
-    program_data: &Pubkey,
-    authority: &Pubkey,
-) -> Option<Pubkey> {
-    let transaction_history = client
-        .get_signatures_for_address(&program_data)
+    let mut transaction_history = client
+        .get_signatures_for_address(&key)
         .await
         .unwrap_or_default()
         .iter()
@@ -402,6 +369,10 @@ async fn get_multisig_account_from_program_data(
         "[{}/{}] Searching transaction history",
         0, total_transactions,
     ));
+
+    if reverse {
+        transaction_history.reverse();
+    }
 
     for (i, tx) in transaction_history.iter().enumerate() {
         let sig = &Signature::from_str(&tx.signature).unwrap();
