@@ -35,6 +35,7 @@ cargo install squads-v3-index-cli
 ```
 
 ## Usage
+
 The easiest way to index a program is to directly pass in the program ID. The CLI will automatically add an index for the program upgrade authority.
 **Note that the local keypair will need to pay 0.00089588 SOL for the transaction if the key is not already indexed.**
 
@@ -50,7 +51,7 @@ You can find both of these address in the **Info** section on the Squads V3 UI. 
 
 The Authority is the true program upgrade authority, but it is not possible to connect it back to the Squads V3 program. However, its address is deterministically derived from the Multisig, and it is possible to connect the Multisig back to the Squads V3 program.
 
-[![image](images/info_page.png)]
+![image](images/info_page.png)
 
 Once you grab the Multisig address, pass it into the `index` subcommand on the CLI. It will print the following for you to confirm:
 
